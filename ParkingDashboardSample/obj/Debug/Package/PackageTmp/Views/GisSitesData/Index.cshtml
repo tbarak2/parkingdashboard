@@ -1,0 +1,39 @@
+﻿
+@model IEnumerable<ParkingDashboardSample.Models.SiteData>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+
+
+@*@section scripts{
+
+        <script src="~/Scripts/app/app.js">
+    </script>
+    <script src="~/Scripts/app/controller/gisSiteController.js">
+    </script>
+    }*@
+
+<h2>Index</h2>
+
+<div ng-controller="GitSitesController">
+    @*{{message}}
+         <table class="table">
+             <tr ng-repeat="r in siteName">
+                 <td>{{r}}</td>
+
+              </tr>
+        </table>*@
+
+
+
+    @*<ui-gmap-google-map center='map.center' zoom='map.zoom'></ui-gmap-google-map>*@
+    @*<div class="maps" ng-hide="hide">*@
+
+    <ui-gmap-google-map center="map.center" control="map.control" options="options" zoom="map.zoom">
+        <ui-gmap-marker ng-repeat="m in markers" coords="m.coords" idkey="m.id" options="m.options"></ui-gmap-marker>
+    </ui-gmap-google-map>
+    @*</div>*@
+
+</div>

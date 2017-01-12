@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="SiteModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="SiteDatas">
+    <Key>
+      <PropertyRef Name="SiteDataId" />
+    </Key>
+    <Property Name="SiteDataId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="SiteName" Type="nvarchar(max)" />
+    <Property Name="Status" Type="nvarchar(max)" />
+    <Property Name="Faults" Type="int" Nullable="false" />
+    <Property Name="Warnings" Type="int" Nullable="false" />
+    <Property Name="Self" Type="nvarchar(max)" />
+  </EntityType>
+  <EntityContainer Name="SiteModelStoreContainer">
+    <EntitySet Name="SiteDatas" EntityType="Self.SiteDatas" Schema="dbo" store:Type="Tables" />
+  </EntityContainer>
+</Schema>

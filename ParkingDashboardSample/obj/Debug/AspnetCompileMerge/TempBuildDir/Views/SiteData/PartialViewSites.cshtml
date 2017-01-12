@@ -1,0 +1,48 @@
+﻿@model IEnumerable<ParkingDashboardSample.Models.SiteData>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.SiteName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Status)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Faults)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Warnings)
+        </th>
+        @*<th>
+                @Html.DisplayNameFor(model => model.Self)
+            </th>*@
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr class=@Html.DisplayFor(modelItem => item.Status)>
+            <td>
+                @Html.DisplayFor(modelItem => item.SiteName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Status)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Faults)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Warnings)
+            </td>
+            @*<td>
+                    @Html.DisplayFor(modelItem => item.Self)
+                </td>*@
+            <td>
+                @*@Html.ActionLink("Edit", "Edit", new { id=item.SiteDataId }) |*@
+                @Html.ActionLink("Details", "Details", new { id = item.SiteDataId }) @*|
+                    @Html.ActionLink("Delete", "Delete", new { id=item.SiteDataId })*@
+            </td>
+        </tr>
+    }
+
+</table>
