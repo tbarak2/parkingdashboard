@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="SiteModelStoreContainer" CdmEntityContainer="Entities">
+    <EntitySetMapping Name="SiteDatas">
+      <EntityTypeMapping TypeName="SiteModel.SiteData">
+        <MappingFragment StoreEntitySet="SiteDatas">
+          <ScalarProperty Name="SiteDataId" ColumnName="SiteDataId" />
+          <ScalarProperty Name="SiteName" ColumnName="SiteName" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="Faults" ColumnName="Faults" />
+          <ScalarProperty Name="Warnings" ColumnName="Warnings" />
+          <ScalarProperty Name="Self" ColumnName="Self" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>
