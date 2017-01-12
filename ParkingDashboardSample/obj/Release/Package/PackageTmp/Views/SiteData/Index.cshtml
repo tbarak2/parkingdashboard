@@ -46,29 +46,53 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr  class= @Html.DisplayFor(modelItem => item.Status) >
-        <td>
-            @Html.DisplayFor(modelItem => item.SiteName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Status)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Faults)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Warnings)
-        </td>
-        @*<td>
+    @foreach (var item in Model) {
+        <tr  class= @Html.DisplayFor(modelItem => item.Status) >
+            <td>
+                @Html.DisplayFor(modelItem => item.SiteName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Status)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Faults)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Warnings)
+            </td>
+            @*<td>
             @Html.DisplayFor(modelItem => item.Self)
         </td>*@
-        <td>
-            @*@Html.ActionLink("Edit", "Edit", new { id=item.SiteDataId }) |*@
-            @Html.ActionLink("Details", "Details", new { id=item.SiteDataId }) @*|
+            <td>
+                @*@Html.ActionLink("Edit", "Edit", new { id=item.SiteDataId }) |*@
+                @Html.ActionLink("Details", "Details", new { id=item.SiteDataId }) @*|
             @Html.ActionLink("Delete", "Delete", new { id=item.SiteDataId })*@
-        </td>
-    </tr>
-}
+            </td>
+        </tr>
+    }
 
 </table>
+<input type="button" id="sendmessage" value="Send" />
+<ul id="discussion"></ul>
+
+@section scripts
+{
+    <script src="~/Scripts/jquery.signalR-2.2.1.min.js"></script>
+    <script src="~/signalr/hubs"></script>
+    <script>
+        $(function() {
+            var clients = $.connection.eventHub;
+            clients.client.newMessage = function (name, message) {
+                $('#discussion').append('<li><strong>' + htmlEncode(name)
+                    + '</strong>: ' + htmlEncode(message) + '</li>');
+            }
+            $.connection.hub.start()
+                .done(function() {
+                    $('#sendmessage')
+                        .click(function() {
+                            clients.server.getEvents("roy", "hello");
+                        });
+                });
+        })
+    </script>
+}

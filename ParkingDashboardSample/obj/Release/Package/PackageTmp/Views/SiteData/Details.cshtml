@@ -5,54 +5,79 @@
 }
 
 <h2>Details</h2>
-
-<div>
-    <h4>SiteData</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.SiteName)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.SiteName)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Status)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Status)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Faults)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Faults)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Warnings)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Warnings)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Self)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Self)
-        </dd>
-
-    </dl>
+<div ng-controller="SiteDetailsController">
+    <script type="text/javascript">
+        var siteId = '@ViewBag.id';
+    </script>
+    
+    <ul ng-repeat="(key, value) in siteDetails ">
+        
+        <li ng-if="key !== 'Self'">{{key}} : {{value}}</li>
+    </ul>
+    <button class="btn btn-primary" ng-click="OpenCam(siteId)">{{siteDetails.SiteName}} Cam</button>
+    <div class="container">
+        <h2 ng-if="siteDetails !== null && events !== null"> Events:</h2>
+        <table class="table">
+            <thead >
+            <tr >
+                <th ng-repeat="(key,value) in events[0]">{{key}}</th>
+            </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="event in events |orderBy:'Severity'" >
+                    <th ng-repeat="(key,value) in event" ng-class="setClass(event)">{{value}}</th>
+                </tr>
+            </tbody>
+        </table>
+    </div>
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.SiteDataId }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+    @*<div>
+            <h4>SiteData</h4>
+            <hr />
+            <dl class="dl-horizontal">
+                <dt>
+                    @Html.DisplayNameFor(model => model.SiteName)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.SiteName)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.Status)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Status)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.Faults)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Faults)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.Warnings)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Warnings)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.Self)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Self)
+                </dd>
+
+            </dl>
+        </div>*@
+    @*<p>
+            @Html.ActionLink("Edit", "Edit", new { id = Model.SiteDataId }) |
+            @Html.ActionLink("Back to List", "Index")
+        </p>*@
