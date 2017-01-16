@@ -6,7 +6,7 @@ using System.Globalization;
 
 namespace ParkingDashboardSample.Models
 {
-    public class SiteData
+    public class SiteData:EntityBase
     {
         public int SiteDataId { get; set; }
         public string SiteName{ get; set; }

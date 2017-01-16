@@ -9,11 +9,14 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using Microsoft.AspNet.SignalR;
 using Microsoft.ServiceBus;
 using Microsoft.ServiceBus.Messaging;
 using Newtonsoft.Json;
 using ParkingDashboardSample.App_Start;
+using ParkingDashboardSample.Hubs;
 using ParkingDashboardSample.Models;
+using ParkingDashboardSample.SqlServerNotifier;
 
 namespace ParkingDashboardSample.Controllers
 {
@@ -23,56 +26,63 @@ namespace ParkingDashboardSample.Controllers
         private bool isTableNeedToUpdated = false;
         private int SiteId { set; get; }
         //private ParkingDashboardSampleContext db = new ParkingDashboardSampleContext();
+        SiteDataRepository objRepo = new SiteDataRepository();
+        /* public SiteDataController()
+         {
+             Task.Factory.StartNew(() =>
+             {
+                 string eventHubConnectionString =
+                     "Endpoint=sb://parkingdashboardeventhub.servicebus.windows.net/;SharedAccessKeyName=RootManageSharedAccessKey;SharedAccessKey=wlcP65lCLO3gzJRfmwMR+UfgqpQ7KLS5IEzdvOs975k=";
+                 string eventHubName = "siteevent";
+                 string storageAccountName = "parkingstorageaccount";
+                 string storageAccountKey =
+                     "4J2QCIVa6GKv4OFQj8DhU95fzGeewHKIpoHPgdS/w9kUhr5JwF/jzE11sYdpBcnzpSlgM21mn5V3J8+mJignqQ==";
+                 string storageConnectionString =
+                     string.Format("DefaultEndpointsProtocol=https;AccountName={0};AccountKey={1}", storageAccountName,
+                         storageAccountKey);
+                 ServiceBusEnvironment.SystemConnectivity.Mode = ConnectivityMode.Https;
+                 string eventProcessorHostName = Guid.NewGuid().ToString();
+                 EventProcessorHost eventProcessorHost = new EventProcessorHost(eventProcessorHostName, eventHubName,
+                     EventHubConsumerGroup.DefaultGroupName, eventHubConnectionString, storageConnectionString);
+                 //Console.WriteLine("Registering EventProcessor...");
+                 var options = new EventProcessorOptions
+                 {
+                     InitialOffsetProvider = (partitionId) => DateTime.UtcNow
+                 };
+                 options.ExceptionReceived += (sender, e) => { Console.WriteLine(e.Exception); };
+                  eventProcessorHost.RegisterEventProcessorAsync<SiteDataController>(options).Wait();
+             });
+         }*/
 
-        public SiteDataController()
-        {
-            Task.Factory.StartNew(() =>
-            {
-                string eventHubConnectionString =
-                    "Endpoint=sb://parkingdashboardeventhub.servicebus.windows.net/;SharedAccessKeyName=RootManageSharedAccessKey;SharedAccessKey=wlcP65lCLO3gzJRfmwMR+UfgqpQ7KLS5IEzdvOs975k=";
-                string eventHubName = "siteevent";
-                string storageAccountName = "parkingstorageaccount";
-                string storageAccountKey =
-                    "4J2QCIVa6GKv4OFQj8DhU95fzGeewHKIpoHPgdS/w9kUhr5JwF/jzE11sYdpBcnzpSlgM21mn5V3J8+mJignqQ==";
-                string storageConnectionString =
-                    string.Format("DefaultEndpointsProtocol=https;AccountName={0};AccountKey={1}", storageAccountName,
-                        storageAccountKey);
-                ServiceBusEnvironment.SystemConnectivity.Mode = ConnectivityMode.Https;
-                string eventProcessorHostName = Guid.NewGuid().ToString();
-                EventProcessorHost eventProcessorHost = new EventProcessorHost(eventProcessorHostName, eventHubName,
-                    EventHubConsumerGroup.DefaultGroupName, eventHubConnectionString, storageConnectionString);
-                //Console.WriteLine("Registering EventProcessor...");
-                var options = new EventProcessorOptions
-                {
-                    InitialOffsetProvider = (partitionId) => DateTime.UtcNow
-                };
-                options.ExceptionReceived += (sender, e) => { Console.WriteLine(e.Exception); };
-                 eventProcessorHost.RegisterEventProcessorAsync<SiteDataController>(options).Wait();
-            });
-        }
-
-        public ActionResult PartialTable()
+        public async Task<ActionResult> PartialTable()
         {
             /*if (isTableNeedToUpdated)
             {*/
             var t = db.SiteDatas.ToList();
             isTableNeedToUpdated = false;
-            return PartialView("PartialViewSites", t);
+            /*return PartialView("PartialViewSites", t);*/
+            /*var s = objRepo.GetData();*/
+            var collection = db.SiteDatas;
+            ViewBag.NotifierEntity = db.GetNotifierEntity<SiteData>(collection).ToJson();
+            
+            
+            return PartialView("PartialViewSites", await collection.ToListAsync());
 
             /* }
              return PartialView("PartialViewSites",*/
         }
 
         // GET: SiteData
-        public ActionResult Index()
+        public async Task<ActionResult> Index()
         {
-
-
+            var collection = db.SiteDatas;
+            ViewBag.NotifierEntity = db.GetNotifierEntity<SiteData>(collection).ToJson();
             //Console.WriteLine("Receiving. Press enter key to stop worker.");
             //Console.ReadLine();
             // eventProcessorHost.UnregisterEventProcessorAsync().Wait();
 
-            return View(db.SiteDatas.ToList());
+            //return View(db.SiteDatas.ToList());
+            return View(await collection.ToListAsync());
         }
 
         // GET: SiteData/Details/5
@@ -197,6 +207,8 @@ namespace ParkingDashboardSample.Controllers
 
         public ActionResult Test()
         {
+            var hubContext = GlobalHost.ConnectionManager.GetHubContext<EventHub>();
+            hubContext.Clients.All.NewMessage("all", "update");
             return Content("Hi there!");
         }
 

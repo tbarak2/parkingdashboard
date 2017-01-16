@@ -245,10 +245,20 @@
       <DependentUpon>201701030617013_roy.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\DbContextExtensions.cs" />
+    <Compile Include="Models\EntityBase.cs" />
     <Compile Include="Models\EventsData.cs" />
+    <Compile Include="Models\ObjectQueryExtensions.cs" />
     <Compile Include="Models\ParkingDashboardSampleContext.cs" />
+    <Compile Include="Models\ParkingDeshboardContext.cs" />
     <Compile Include="Models\SiteData.cs" />
+    <Compile Include="Models\SiteDataRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SqlServerNotifier\NotifierEntity.cs" />
+    <Compile Include="SqlServerNotifier\NotifierEntityExtentions.cs" />
+    <Compile Include="SqlServerNotifier\PushSqlDependency.cs" />
+    <Compile Include="SqlServerNotifier\SqlDependencyRegister.cs" />
+    <Compile Include="SqlServerNotifier\SqlNotificationEventHandler.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
