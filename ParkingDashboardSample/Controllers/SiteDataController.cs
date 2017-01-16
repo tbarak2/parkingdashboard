@@ -20,13 +20,13 @@ using ParkingDashboardSample.SqlServerNotifier;
 
 namespace ParkingDashboardSample.Controllers
 {
-    public class SiteDataController : Controller, IEventProcessor
+    public class SiteDataController : Controller//, IEventProcessor
     {
         private ParkingDashboardSampleContext db = new ParkingDashboardSampleContext();
         private bool isTableNeedToUpdated = false;
         private int SiteId { set; get; }
         //private ParkingDashboardSampleContext db = new ParkingDashboardSampleContext();
-        SiteDataRepository objRepo = new SiteDataRepository();
+        //SiteDataRepository objRepo = new SiteDataRepository();
         /* public SiteDataController()
          {
              Task.Factory.StartNew(() =>
@@ -222,23 +222,23 @@ namespace ParkingDashboardSample.Controllers
             base.Dispose(disposing);
         }
 
-        public Task OpenAsync(PartitionContext context)
+        /*public Task OpenAsync(PartitionContext context)
         {
 
-            /* Console.WriteLine("SimpleEventProcessor initialized.  Partition: '{0}', Offset: '{1}'", context.Lease.PartitionId, context.Lease.Offset);
+             Console.WriteLine("SimpleEventProcessor initialized.  Partition: '{0}', Offset: '{1}'", context.Lease.PartitionId, context.Lease.Offset);
              this.checkpointStopWatch = new Stopwatch();
-             this.checkpointStopWatch.Start();*/
+             this.checkpointStopWatch.Start();
             return Task.FromResult<object>(null);
-        }
+        }*/
 
-        async Task IEventProcessor.ProcessEventsAsync(PartitionContext context, IEnumerable<EventData> messages)
+       /* async Task IEventProcessor.ProcessEventsAsync(PartitionContext context, IEnumerable<EventData> messages)
         {
             foreach (EventData eventData in messages)
             {
                 string data = Encoding.UTF8.GetString(eventData.GetBytes());
                 var siteEventData = JsonConvert.DeserializeObject<EventsData>(data);
                 /* Console.WriteLine(string.Format("Message received.  Partition: '{0}', Data: '{1}'",
-                     context.Lease.PartitionId, data));*/
+                     context.Lease.PartitionId, data));#1#
                 var siteData = db.SiteDatas.First(s => s.SiteName == siteEventData.Site);
                 UpdateSiteEvent(siteData, siteEventData);
                 //Index();
@@ -253,7 +253,7 @@ namespace ParkingDashboardSample.Controllers
              {
                  await context.CheckpointAsync();
                  this.checkpointStopWatch.Restart();
-             }*/
+             }#1#
         }
 
         private void UpdateSiteEvent(SiteData siteData, EventsData siteEventData)
@@ -287,6 +287,6 @@ namespace ParkingDashboardSample.Controllers
             {
                 await context.CheckpointAsync();
             }
-        }
+        }*/
     }
 }
