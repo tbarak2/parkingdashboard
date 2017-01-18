@@ -140,3 +140,9 @@ C:\Users\royb\documents\visual studio 2015\Projects\ParkingDashboardSample\Parki
 C:\Users\royb\documents\visual studio 2015\Projects\ParkingDashboardSample\ParkingDashboardSample\bin\Microsoft.Owin.xml
 C:\Users\royb\documents\visual studio 2015\Projects\ParkingDashboardSample\ParkingDashboardSample\bin\Microsoft.Owin.Host.SystemWeb.xml
 C:\Users\royb\documents\visual studio 2015\Projects\ParkingDashboardSample\ParkingDashboardSample\bin\Microsoft.Owin.Security.xml
+C:\Users\royb\Documents\Visual Studio 2015\Projects\ParkingDashboardSample\ParkingDashboardSample\bin\Microsoft.AspNet.SignalR.ServiceBus.dll
+C:\Users\royb\Documents\Visual Studio 2015\Projects\ParkingDashboardSample\ParkingDashboardSample\bin\Microsoft.Azure.KeyVault.Core.dll
+C:\Users\royb\Documents\Visual Studio 2015\Projects\ParkingDashboardSample\ParkingDashboardSample\bin\Microsoft.AspNet.SignalR.ServiceBus.xml
+C:\Users\royb\Documents\Visual Studio 2015\Projects\ParkingDashboardSample\ParkingDashboardSample\bin\Microsoft.Azure.KeyVault.Core.xml
+C:\Users\royb\Documents\Visual Studio 2015\Projects\ParkingDashboardSample\ParkingDashboardSample\bin\Microsoft.WindowsAzure.Configuration.xml
+C:\Users\royb\Documents\Visual Studio 2015\Projects\ParkingDashboardSample\ParkingDashboardSample\bin\Microsoft.WindowsAzure.Storage.pdb

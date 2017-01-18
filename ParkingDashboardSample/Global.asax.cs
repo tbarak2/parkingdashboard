@@ -26,15 +26,15 @@ namespace ParkingDashboardSample
             BundleConfig.RegisterBundles(BundleTable.Bundles);
            
 
-            if (!String.IsNullOrEmpty(SqlConnectionString))
-                SqlDependency.Start(SqlConnectionString);
+           /* if (!String.IsNullOrEmpty(SqlConnectionString))
+                SqlDependency.Start(SqlConnectionString);*/
             //SqlDependency.Start(ConfigurationManager.ConnectionStrings["ParkingDashboardSampleContext"].ConnectionString);
         }
 
         protected void Application_End()
         {
-            if (!String.IsNullOrEmpty(SqlConnectionString))
-                SqlDependency.Stop(SqlConnectionString);
+           /* if (!String.IsNullOrEmpty(SqlConnectionString))
+                SqlDependency.Stop(SqlConnectionString);*/
             //SqlDependency.Stop(ConfigurationManager.ConnectionStrings["ParkingDashboardSampleContext"].ConnectionString);
         }
     }

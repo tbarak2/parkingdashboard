@@ -12,7 +12,7 @@ namespace ParkingDashboardSample.SqlServerNotifier
         internal SqlDependencyRegister(NotifierEntity notificationEntity)
         {
             m_NotificationEntity = notificationEntity;
-            RegisterForNotifications();
+            //RegisterForNotifications();
         }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Security",

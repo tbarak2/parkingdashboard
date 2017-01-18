@@ -208,7 +208,7 @@ namespace ParkingDashboardSample.Controllers
         public ActionResult Test()
         {
             var hubContext = GlobalHost.ConnectionManager.GetHubContext<EventHub>();
-            hubContext.Clients.All.NewMessage("all", "update");
+            hubContext.Clients.All.DispatchToClient();
             return Content("Hi there!");
         }
 

@@ -24,6 +24,7 @@ namespace ParkingDashboardSample.Hubs
             if (NotifierEntity == null)
                 return;
             Action<String> dispatcher = (t) => { DispatchToClient(); };
+
             PushSqlDependency.Instance(NotifierEntity, dispatcher);
         }
 
@@ -41,6 +42,11 @@ namespace ParkingDashboardSample.Hubs
         public void Heartbeat()
         {
             Clients.All.heartbeat();
+        }
+
+        public void ReloadTable()
+        {
+            Clients.All.broadcastMessage("Reload");
         }
 
         public override Task OnConnected()
